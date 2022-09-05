@@ -12,9 +12,9 @@ services:
     type: mysql:5.7
     portforward: true
     creds:
-      user: broker
-      password: broker
-      database: broker
+      user: arisan
+      password: arisan
+      database: arisan
   phpmyadmin:
     type: phpmyadmin:5.0
   mailhog:
