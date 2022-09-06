@@ -1,108 +1,77 @@
 @extends('layouts.auth')
 
 @section('content')
-<section class="vh-100">
-    <div class="container-fluid h-custom">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-md-9 col-lg-6 col-xl-5">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-                    class="img-fluid" alt="Sample image">
-            </div>
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form method="post" action="{{ route('login') }}">
-                    @csrf
 
-                    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                        <p class="lead fw-normal mb-0 me-3">@lang('Sign in with')</p>
-                        <button type="button" class="btn app-btn-primary btn-floating mx-1" disabled>
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-
-                        <button type="button" class="btn app-btn-primary btn-floating mx-1" disabled>
-                            <i class="fab fa-twitter"></i>
-                        </button>
-
-                        <button type="button" class="btn app-btn-primary btn-floating mx-1" disabled>
-                            <i class="fab fa-linkedin-in"></i>
-                        </button>
-                    </div>
-
-                    <div class="divider d-flex align-items-center my-4">
-                        <p class="text-center fw-bold mx-3 mb-0">@lang('or')</p>
-                    </div>
-
-                    <!-- Email input -->
-                    <div class="form-floating mb-4">
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                            id="login-email" placeholder="name@example.com"
-                            value="{{ old('email') }}">
-                        <label for="login-email">@lang('Email address')</label>
-
-                        @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <!-- Password input -->
-                    <div class="form-floating mb-4">
-                        <input type="password" name="password"
-                            class="form-control @error('password') is-invalid @enderror" id="login-password"
-                            placeholder="Password">
-                        <label for="login-password">@lang('Password')</label>
-
-                        @error('password')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="d-flex justify-content-between align-items-center">
-                        <!-- Checkbox -->
-                        <div class="form-check mb-0">
-                            <input class="form-check-input me-2" value="1" name="remember" type="checkbox" value=""
-                                id="login-remember" checked />
-                            <label class="form-check-label" for="login-remember">
-                                @lang('Remember me')
-                            </label>
-                        </div>
-                        <a href="{{ route('password.request') }}" class="text-body">@lang('Forgot
-                            password?')</a>
-                    </div>
-
-                    <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="submit" class="btn app-btn-primary btn-lg">@lang('Log In')</button>
-                        <p class="small fw-bold mt-2 pt-1 mb-0">@lang('Don\'t have an account?') <a
-                                href="{{ route('register') }}"
-                                class="link-danger">@lang('Register')</a></p>
-                    </div>
-
-                </form>
-            </div>
-        </div>
+<div class="page page-center">
+  <div class="container-tight py-4">
+    <div class="text-center mb-4">
+      <a href="." class="navbar-brand navbar-brand-autodark"><img src="/img/logo.svg" height="36" alt=""></a>
     </div>
-    <div
-        class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-        <!-- Copyright -->
-        <div class="text-white mb-3 mb-md-0">
-            Copyright © 2020. All rights reserved.
-        </div>
-        <!-- Copyright -->
+    <form class="card card-md" action="{{ route('login') }}" method="post">
+      @csrf
+      <div class="card-body">
+        <h2 class="card-title text-center mb-4">@lang('auth.log_in')</h2>
 
-        <!-- Right -->
-        <div>
-            <a href="#!" class="text-white me-4">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#!" class="text-white me-4">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#!" class="text-white me-4">
-                <i class="fab fa-google"></i>
-            </a>
-            <a href="#!" class="text-white">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
+        @if(session('status'))
+          <div class="alert alert-success">{{ session('status') }}</div>
+        @endif
+
+        <div class="mb-3">
+          <label class="form-label">@lang('Email address')</label>
+          <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror">
+          @error('email')
+          <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
         </div>
-        <!-- Right -->
+        <div class="mb-2">
+          <label class="form-label">
+            @lang('Password')
+            <span class="form-label-description">
+              <a href="{{ route('password.request') }}">@lang('I forgot my password')</a>
+            </span>
+          </label>
+          <input type="password" class="form-control @error('email') is-invalid @enderror" name="password">
+          @error('password')
+          <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
+        <div class="mb-2">
+          <label class="form-check">
+            <input type="checkbox" class="form-check-input" name="remember" value="1" />
+            <span class="form-check-label">@lang('Remember me on this device')</span>
+          </label>
+        </div>
+        <div class="form-footer">
+          <button type="submit" class="btn btn-primary w-100">@lang('Log in')</button>
+        </div>
+      </div>
+      <div class="hr-text">@lang('or')</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <a href="#" class="btn btn-white w-100 disabled">
+              <!-- Download SVG icon from http://tabler-icons.io/i/brand-github -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon text-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+              </svg>
+              @lang('Login with Github')
+            </a></div>
+          <div class="col">
+            <a href="#" class="btn btn-white w-100 disabled">
+              <!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon text-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+              </svg>
+              @lang('Login with Twitter')
+            </a></div>
+        </div>
+      </div>
+    </form>
+    <div class="text-center text-muted mt-3">
+      @lang('Don\'t have account yet?') <a href="{{ route('register') }}" tabindex="-1">@lang('Register')</a>
     </div>
-</section>
+  </div>
+</div>
 @endsection

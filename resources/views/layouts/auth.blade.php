@@ -1,29 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<!--
+* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
+* @version 1.0.0-beta11
+* @link https://tabler.io
+* Copyright 2018-2022 The Tabler Authors
+* Copyright 2018-2022 codecalm.net Paweł Kuna
+* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
+-->
+<html lang="{{ app()->getLocale() }}">
 
 <head>
-    <title>{{ config('app.name') }} - {{ $title ?? '' }}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>{{ config('app.name' ) }} @if(!empty($title)) {{ sprintf(' - %s', $title) }} @endif</title>
+  <style>
+    @import url('https://rsms.me/inter/inter.css');
 
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
-    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
-    <link rel="shortcut icon" href="favicon.ico">
-
-    <!-- FontAwesome JS-->
-    <script defer src="/plugins/fontawesome/js/all.min.js"></script>
-
-    <!-- App CSS -->
-    <link id="theme-style" rel="stylesheet" href="/css/portal.css">
-    <link id="theme-style" rel="stylesheet" href="/css/custom.css">
-
+    :root {
+      --tblr-font-sans-serif: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif !important;
+    }
+  </style>
+  <!-- CSS files -->
+  <link href="/css/tabler.min.css" rel="stylesheet" />
+  <link href="/css/tabler-flags.min.css" rel="stylesheet" />
+  <link href="/css/tabler-payments.min.css" rel="stylesheet" />
+  <link href="/css/tabler-vendors.min.css" rel="stylesheet" />
+  <link href="/css/demo.min.css" rel="stylesheet" />
 </head>
 
-<body class="app app-login p-0">
-    @yield('content')
+<body class=" border-top-wide border-primary d-flex flex-column">
+  @yield('content')
+  <!-- Libs JS -->
+  <!-- Tabler Core -->
+  <script src="/js/tabler.min.js" defer></script>
 </body>
 
 </html>
